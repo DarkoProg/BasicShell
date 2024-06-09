@@ -41,10 +41,11 @@ fn main() {
                             // println!("'{}'", path.display());
                             path.push(parameters[1]);
                             if path.exists() {
-                                println!("{} is {:?}", parameters[1], path.to_str().unwrap());
+                                println!("{} is {}", parameters[1], path.to_str().unwrap());
                                 break;
                             }
                         }
+                        break;
                     }
                     None => println!("{} not found", &parameters[1..].join(" ")),
                 }
