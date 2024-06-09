@@ -50,6 +50,7 @@ fn main() {
                     None => println!("{} not found", &parameters[1..].join(" ")),
                 }
             }
+            println!("{}: not found", parameters[1]);
         } else {
             print!("{}: command not found\n", parameters[0]);
         }
