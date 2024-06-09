@@ -2,7 +2,7 @@
 use std::io::{self, Write};
 
 fn main() {
-    let builtInCommands: [&str; 4] = ["echo", "exit", "type", "none"];
+    let built_in_commands: [&str; 4] = ["echo", "exit", "type", "none"];
     loop {
         print!("$ ");
         io::stdout().flush().unwrap();
