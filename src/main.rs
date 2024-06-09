@@ -22,7 +22,7 @@ fn main() {
         if parameters[0] == "echo" {
             println!("{}", &parameters[1]);
         } else if parameters[0] == "type" {
-            for command in builtInCommands {
+            for command in built_in_commands {
                 if command == parameters[1] {
                     println!("{} is a shell builtin", command);
                     break;
