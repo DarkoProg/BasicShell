@@ -45,6 +45,7 @@ fn main() {
                                 break;
                             }
                         }
+                        println!("{} not found", &parameters[1]);
                         break;
                     }
                     None => println!("{} not found", &parameters[1]),
