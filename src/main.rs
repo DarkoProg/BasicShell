@@ -47,10 +47,9 @@ fn main() {
                         }
                         break;
                     }
-                    None => println!("{} not found", &parameters[1..].join(" ")),
+                    None => println!("{} not found", &parameters[1]),
                 }
             }
-            println!("{}: not found", parameters[1]);
         } else {
             print!("{}: command not found\n", parameters[0]);
         }
