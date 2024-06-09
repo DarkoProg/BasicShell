@@ -29,15 +29,17 @@ fn main() {
         if parameters[0] == "echo" {
             println!("{}", &parameters[1..].join(" "));
         } else if parameters[0] == "type" {
+            let mut found = false;
             for command in built_in_commands {
                 if command == parameters[1] {
                     println!("{} is a shell builtin", command);
+                    found = true;
                     break;
                 }
-
+            }
+            if !found {
                 match env::var_os(key) {
                     Some(paths) => {
-                        let mut found = false;
                         for mut path in env::split_paths(&paths) {
                             // println!("'{}'", path.display());
                             path.push(parameters[1]);
@@ -47,13 +49,12 @@ fn main() {
                                 break;
                             }
                         }
-                        if !found {
-                            println!("{} not found", &parameters[1]);
-                        }
-                        break;
                     }
                     None => println!("{} not found", &parameters[1]),
                 }
+            }
+            if !found {
+                println!("{} not found", &parameters[1]);
             }
         } else {
             print!("{}: command not found\n", parameters[0]);
