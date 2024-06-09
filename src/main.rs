@@ -1,8 +1,15 @@
 #[allow(unused_imports)]
 use std::io::{self, Write};
+#[allow(unused_imports)]
+use std::{alloc::System, env, path::Path};
 
 fn main() {
     let built_in_commands: [&str; 4] = ["echo", "exit", "type", "none"];
+    // let mut system_paths = Vec::new();
+
+    let key = "PATH";
+    // let paths = env::var_os(key);
+
     loop {
         print!("$ ");
         io::stdout().flush().unwrap();
@@ -27,8 +34,19 @@ fn main() {
                     println!("{} is a shell builtin", command);
                     break;
                 }
-                if command == "none" {
-                    println!("{} not found", &parameters[1..].join(" "));
+
+                match env::var_os(key) {
+                    Some(paths) => {
+                        for mut path in env::split_paths(&paths) {
+                            // println!("'{}'", path.display());
+                            path.push(parameters[1]);
+                            if path.exists() {
+                                println!("{} is {:?}", parameters[1], path.to_str().unwrap());
+                                break;
+                            }
+                        }
+                    }
+                    None => println!("{} not found", &parameters[1..].join(" ")),
                 }
             }
         } else {
