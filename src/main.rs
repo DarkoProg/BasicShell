@@ -47,7 +47,7 @@ fn main() {
                                 break;
                             }
                         }
-                        if found {
+                        if !found {
                             println!("{} not found", &parameters[1]);
                         }
                         break;
