@@ -28,7 +28,7 @@ fn main() {
                     break;
                 }
                 if command == "none" {
-                    println!("{} not found", &parameters[1]);
+                    println!("{} not found", &parameters[1..].join(" "));
                 }
             }
         } else {
