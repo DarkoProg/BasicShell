@@ -16,6 +16,10 @@ fn main() {
             break;
         }
 
-        print!("{}: command not found\n", input);
+        if &input[..4] == "echo" {
+            println!("{}", &input[5..]);
+        } else {
+            print!("{}: command not found\n", input);
+        }
     }
 }
