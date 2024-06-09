@@ -2,6 +2,7 @@
 use std::io::{self, Write};
 
 fn main() {
+    let builtInCommands: [&str; 4] = ["echo", "exit", "type", "none"];
     loop {
         print!("$ ");
         io::stdout().flush().unwrap();
@@ -16,10 +17,22 @@ fn main() {
             break;
         }
 
-        if &input[..4] == "echo" {
-            println!("{}", &input[5..]);
+        let parameters: Vec<&str> = input.split(" ").collect();
+
+        if parameters[0] == "echo" {
+            println!("{}", &parameters[1]);
+        } else if parameters[0] == "type" {
+            for command in builtInCommands {
+                if command == parameters[1] {
+                    println!("{} is a shell builtin", command);
+                    break;
+                }
+                if command == "none" {
+                    println!("{} not found", &parameters[1]);
+                }
+            }
         } else {
-            print!("{}: command not found\n", input);
+            print!("{}: command not found\n", parameters[0]);
         }
     }
 }
