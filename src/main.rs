@@ -37,15 +37,19 @@ fn main() {
 
                 match env::var_os(key) {
                     Some(paths) => {
+                        let mut found = false;
                         for mut path in env::split_paths(&paths) {
                             // println!("'{}'", path.display());
                             path.push(parameters[1]);
                             if path.exists() {
                                 println!("{} is {}", parameters[1], path.to_str().unwrap());
+                                found = true;
                                 break;
                             }
                         }
-                        println!("{} not found", &parameters[1]);
+                        if found {
+                            println!("{} not found", &parameters[1]);
+                        }
                         break;
                     }
                     None => println!("{} not found", &parameters[1]),
