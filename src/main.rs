@@ -20,7 +20,7 @@ fn main() {
         let parameters: Vec<&str> = input.split(" ").collect();
 
         if parameters[0] == "echo" {
-            println!("{}", &parameters[1]);
+            println!("{}", &parameters[1..].join(" "));
         } else if parameters[0] == "type" {
             for command in built_in_commands {
                 if command == parameters[1] {
