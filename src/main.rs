@@ -50,7 +50,7 @@ fn main() {
                 println!("{}", system_paths.last().unwrap().to_str().unwrap());
             } else if parameters[0] == "cd" {
                 if parameters[1] == "~" {
-                    env::set_current_dir(env::home_dir().unwrap());
+                    env::set_current_dir(dirs::home_dir().unwrap()).unwrap();
                 } else {
                     let mut new_dir = PathBuf::from(system_paths.last().unwrap());
                     new_dir.push(parameters[1]);
