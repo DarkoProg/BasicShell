@@ -49,6 +49,9 @@ fn main() {
                 println!("{}", &parameters[1..].join(" "));
             } else if parameters[0] == "pwd" {
                 println!("{}", system_paths.last().unwrap().to_str().unwrap());
+            } else if parameters[0] == "cd" {
+                let mut new_dir = PathBuf::from(system_paths.last().unwrap());
+                new_dir.push(parameters[1]);
             } else if parameters[0] == "type" {
                 let mut found = false;
                 for command in built_in_commands {
