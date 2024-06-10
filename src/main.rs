@@ -78,7 +78,7 @@ fn main() {
                     // println!("'{}'", path.display());
                     path.push(parameters[0]);
                     if path.exists() {
-                        Command::new(path);
+                        let output = Command::new(path).output().expect("Failed to run program");
                         found = true;
                         break;
                     }
