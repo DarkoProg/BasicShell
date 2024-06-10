@@ -78,10 +78,7 @@ fn main() {
                     // println!("'{}'", path.display());
                     path.push(parameters[0]);
                     if path.exists() {
-                        Command::new(parameters[0])
-                            .stdout(Stdio::null())
-                            .spawn()
-                            .expect("command not found");
+                        Command::new(path);
                         found = true;
                         break;
                     }
