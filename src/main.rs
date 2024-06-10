@@ -52,6 +52,11 @@ fn main() {
             } else if parameters[0] == "cd" {
                 let mut new_dir = PathBuf::from(system_paths.last().unwrap());
                 new_dir.push(parameters[1]);
+                if new_dir.exists() {
+                    env::set_current_dir(new_dir);
+                    system_paths.pop();
+                    // system_paths.push(new_dir);
+                }
             } else if parameters[0] == "type" {
                 let mut found = false;
                 for command in built_in_commands {
