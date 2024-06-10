@@ -27,7 +27,6 @@ fn main() {
 
         if !input.is_empty() {
             let mut system_paths: Vec<PathBuf> = Vec::new();
-            //
             match env::var_os(key) {
                 Some(paths) => {
                     for path in env::split_paths(&paths) {
@@ -50,6 +49,9 @@ fn main() {
             } else if parameters[0] == "pwd" {
                 println!("{}", system_paths.last().unwrap().to_str().unwrap());
             } else if parameters[0] == "cd" {
+                if parameters[1] == "~" {
+                    env::set_current_dir(env::home_dir().unwrap());
+                }
                 let mut new_dir = PathBuf::from(system_paths.last().unwrap());
                 new_dir.push(parameters[1]);
                 if new_dir.exists() {
