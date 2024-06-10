@@ -1,7 +1,12 @@
 #[allow(unused_imports)]
 use std::io::{self, Write};
 #[allow(unused_imports)]
-use std::{alloc::System, env, path::Path};
+use std::{
+    alloc::System,
+    env,
+    path::{Path, PathBuf},
+    process::Command,
+};
 
 fn main() {
     let built_in_commands: [&str; 4] = ["echo", "exit", "type", "none"];
@@ -20,6 +25,18 @@ fn main() {
         stdin.read_line(&mut input).unwrap();
         input = input.trim().to_string();
 
+        let mut system_paths: Vec<PathBuf> = Vec::new();
+
+        match env::var_os(key) {
+            Some(paths) => {
+                for path in env::split_paths(&paths) {
+                    // println!("'{}'", path.display());
+                    system_paths.push(path);
+                }
+            }
+            None => println!("Path not found"),
+        }
+
         if input == "exit 0" {
             break;
         }
@@ -37,27 +54,40 @@ fn main() {
                     break;
                 }
             }
+
             if !found {
-                match env::var_os(key) {
-                    Some(paths) => {
-                        for mut path in env::split_paths(&paths) {
-                            // println!("'{}'", path.display());
-                            path.push(parameters[1]);
-                            if path.exists() {
-                                println!("{} is {}", parameters[1], path.to_str().unwrap());
-                                found = true;
-                                break;
-                            }
-                        }
+                for mut path in system_paths {
+                    // println!("'{}'", path.display());
+                    path.push(parameters[1]);
+                    if path.exists() {
+                        println!("{} is {}", parameters[1], path.to_str().unwrap());
+                        found = true;
+                        break;
                     }
-                    None => println!("{} not found", &parameters[1]),
                 }
             }
+
             if !found {
                 println!("{} not found", &parameters[1]);
             }
         } else {
-            print!("{}: command not found\n", parameters[0]);
+            let mut found = false;
+            for mut path in system_paths {
+                // println!("'{}'", path.display());
+                path.push(parameters[1]);
+                if path.exists() {
+                    Command::new(parameters[1])
+                        .args(&parameters[2..])
+                        .output()
+                        .expect("failed to execute process");
+                    found = true;
+                    break;
+                }
+            }
+
+            if found {
+                print!("{}: command not found\n", parameters[0]);
+            }
         }
     }
 }
