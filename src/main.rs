@@ -78,7 +78,10 @@ fn main() {
                     // println!("'{}'", path.display());
                     path.push(parameters[0]);
                     if path.exists() {
-                        let output = Command::new(path).output().expect("Failed to run program");
+                        let output = Command::new(path)
+                            .args(&parameters[1..])
+                            .output()
+                            .expect("Failed to run program");
                         println!(
                             "{}",
                             String::from_utf8(output.stdout).expect("output not valid")
