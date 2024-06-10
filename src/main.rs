@@ -47,6 +47,8 @@ fn main() {
 
             if parameters[0] == "echo" {
                 println!("{}", &parameters[1..].join(" "));
+            } else if parameters[0] == "pwd" {
+                println!("{}", system_paths.last().unwrap().to_str().unwrap());
             } else if parameters[0] == "type" {
                 let mut found = false;
                 for command in built_in_commands {
