@@ -27,7 +27,7 @@ fn main() {
 
         if !input.is_empty() {
             let mut system_paths: Vec<PathBuf> = Vec::new();
-
+            //
             match env::var_os(key) {
                 Some(paths) => {
                     for path in env::split_paths(&paths) {
