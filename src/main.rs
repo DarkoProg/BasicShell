@@ -56,6 +56,8 @@ fn main() {
                     env::set_current_dir(new_dir).unwrap();
                     system_paths.pop();
                     // system_paths.push(new_dir);
+                } else {
+                    println!("{}: No such file or directory", parameters[1]);
                 }
             } else if parameters[0] == "type" {
                 let mut found = false;
