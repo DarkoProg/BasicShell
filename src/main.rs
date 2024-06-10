@@ -53,7 +53,7 @@ fn main() {
                 let mut new_dir = PathBuf::from(system_paths.last().unwrap());
                 new_dir.push(parameters[1]);
                 if new_dir.exists() {
-                    env::set_current_dir(new_dir);
+                    env::set_current_dir(new_dir).unwrap();
                     system_paths.pop();
                     // system_paths.push(new_dir);
                 }
