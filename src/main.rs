@@ -5,7 +5,7 @@ use std::{
     alloc::System,
     env,
     path::{Path, PathBuf},
-    process::Command,
+    process::{Command, Stdio},
 };
 
 fn main() {
@@ -79,9 +79,9 @@ fn main() {
                     path.push(parameters[0]);
                     if path.exists() {
                         Command::new(parameters[0])
-                            .args(&parameters[1..])
-                            .output()
-                            .expect("failed to execute process");
+                            .stdout(Stdio::null())
+                            .spawn()
+                            .expect("command not found");
                         found = true;
                         break;
                     }
