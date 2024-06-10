@@ -78,9 +78,6 @@ fn main() {
                     // println!("'{}'", path.display());
                     path.push(parameters[0]);
                     if path.exists() {
-                        // println!("{}", path.to_str().unwrap());
-
-                        // let output = Command::new(path).output().unwrap();
                         let mut cmd = Command::new(path);
                         cmd.args(&parameters[1..]);
 
@@ -92,10 +89,6 @@ fn main() {
                                 println!("Error: {}", e)
                             }
                         }
-                        // println!(
-                        //     "{}",
-                        //     String::from_utf8(output.stdout).expect("output not valid")
-                        // );
                         found = true;
                         break;
                     }
