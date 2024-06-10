@@ -51,15 +51,16 @@ fn main() {
             } else if parameters[0] == "cd" {
                 if parameters[1] == "~" {
                     env::set_current_dir(env::home_dir().unwrap());
-                }
-                let mut new_dir = PathBuf::from(system_paths.last().unwrap());
-                new_dir.push(parameters[1]);
-                if new_dir.exists() {
-                    env::set_current_dir(new_dir).unwrap();
-                    system_paths.pop();
-                    // system_paths.push(new_dir);
                 } else {
-                    println!("{}: No such file or directory", parameters[1]);
+                    let mut new_dir = PathBuf::from(system_paths.last().unwrap());
+                    new_dir.push(parameters[1]);
+                    if new_dir.exists() {
+                        env::set_current_dir(new_dir).unwrap();
+                        system_paths.pop();
+                        // system_paths.push(new_dir);
+                    } else {
+                        println!("{}: No such file or directory", parameters[1]);
+                    }
                 }
             } else if parameters[0] == "type" {
                 let mut found = false;
