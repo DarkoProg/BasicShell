@@ -79,7 +79,7 @@ fn main() {
                     path.push(parameters[0]);
                     if path.exists() {
                         let output = Command::new(path).output().expect("Failed to run program");
-                        println!("{}", output.status);
+                        println!("{:?}", output.stdout);
                         found = true;
                         break;
                     }
