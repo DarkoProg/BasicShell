@@ -37,6 +37,7 @@ fn main() {
                 }
                 None => println!("Path not found"),
             }
+            system_paths.push(env::current_dir().unwrap());
 
             if input == "exit 0" {
                 break;
