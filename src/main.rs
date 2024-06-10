@@ -79,13 +79,16 @@ fn main() {
                     path.push(parameters[0]);
                     if path.exists() {
                         let output = Command::new(path).output().expect("Failed to run program");
-                        println!("{:?}", output.stdout);
+                        println!(
+                            "{}",
+                            String::from_utf8(output.stdout).expect("output not valid")
+                        );
                         found = true;
                         break;
                     }
                 }
 
-                if found {
+                if !found {
                     print!("{}: command not found\n", parameters[0]);
                 }
             }
